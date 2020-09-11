@@ -11,7 +11,7 @@ Configutation:
       target: SYSTEM_OUT
       # 화면에 출력될 로그 방식 설정
       PatternLayout:
-        Pattern: "%style{%d{yyyy/MM/dd HH:mm:ss,SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] %style{[%t]}{yellow}- %message%n -"
+        Pattern: "%style{%d{yyyy/MM/dd HH:mm:ss,SSS}}{cyan} %style{[%t]}{yellow} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] - %message%n"
     # log 저장 파일 형태 설정
     RollingFile:
       - name: APPLICATION

@@ -9,16 +9,17 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "MEMBERS")
 @Getter
+@NoArgsConstructor
 public class Member {
-
-  public Member() {}
 
   @Builder
   public Member(String email, String password, String name, String gender, Date birthDate) {
@@ -33,29 +34,30 @@ public class Member {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long memNo;
 
-  @Column(nullable = false)
+  @Column @NotNull
   private String email;
 
-  @Column(nullable = false)
+  @Column @NotNull
   private String password;
 
-  @Column(nullable = false)
+  @Column @NotNull
   private String name;
 
-  @Column(name = "GENDER", length = 1, nullable = false)
+  @Column(name = "GENDER", length = 1)
+  @NotNull
   private String gender;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
+  @Column @NotNull
   private Date birthDate;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
+  @Column @NotNull
   @CreationTimestamp
   private Date regDts;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(nullable = false)
+  @Column @NotNull
   @CreationTimestamp
   private Date modDts;
 }

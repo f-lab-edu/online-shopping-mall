@@ -5,5 +5,4 @@ public class CommonConstant {
 
   private CommonConstant() {};
 
-  public static final String ONLINE_SHOPPING_MALL =  "Online_Shopping_Mall";
 }
