@@ -17,14 +17,13 @@ Configutation:
       level: INFO
       AppenderRef:
         - ref: CONSOLE
-        - ref: APPLICATION
     Logger:
-      - name: Online-Shopping-Mall
+      - name: me.naming
         additivity: false
         level: info
         AppenderRef:
           - ref: CONSOLE
-      - name: Online-Shopping-Mall
+      - name: me.naming
         additivity: false
         level: debug
         AppenderRef:

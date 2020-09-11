@@ -14,7 +14,7 @@ Configutation:
         Pattern: "%style{%d{yyyy/MM/dd HH:mm:ss,SSS}}{cyan} %style{[%t]}{yellow} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] - %message%n"
     # log 저장 파일 형태 설정
     RollingFile:
-      - name: APPLICATION
+      - name: LogToOnlineShoppingMall
         fileName: ../logs/online-shopping-mall.log
         filePattern: "../logs/$${date:yyyy-MM}/onlineShoppingMall-%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
@@ -31,17 +31,17 @@ Configutation:
       level: INFO
       AppenderRef:
         - ref: CONSOLE
-        - ref: APPLICATION
+        - ref: LogToOnlineShoppingMall
     Logger:
       - name: Online-Shopping-Mall
         additivity: false
         level: info
         AppenderRef:
           - ref: CONSOLE
-          - ref: APPLICATION
+          - ref: LogToOnlineShoppingMall
       - name: Online-Shopping-Mall
         additivity: false
         level: debug
         AppenderRef:
           - ref: CONSOLE
-          - ref: APPLICATION
+          - ref: LogToOnlineShoppingMall
