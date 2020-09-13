@@ -34,13 +34,16 @@ public class Member {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long memNo;
 
-  @Column @NotNull
+  @Column
+  @NotNull
   private String email;
 
-  @Column @NotNull
+  @Column
+  @NotNull
   private String password;
 
-  @Column @NotNull
+  @Column
+  @NotNull
   private String name;
 
   @Column(name = "GENDER", length = 1)
@@ -48,16 +51,19 @@ public class Member {
   private String gender;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column @NotNull
+  @Column
+  @NotNull
   private Date birthDate;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column @NotNull
+  @Column
+  @NotNull
   @CreationTimestamp
   private Date regDts;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column @NotNull
+  @Column
+  @NotNull
   @CreationTimestamp
   private Date modDts;
 }
