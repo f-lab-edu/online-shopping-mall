@@ -57,13 +57,11 @@ public class Member {
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column
-  @NotNull
   @CreationTimestamp
   private Date regDts;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column
-  @NotNull
   @CreationTimestamp
   private Date modDts;
 }

@@ -1,7 +1,6 @@
 package me.naming.onlineshoppingmall.repository;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,13 +9,10 @@ import me.naming.onlineshoppingmall.domain.Member;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@DataJpaTest
 class MemberRepositoryTest {
 
   @Autowired
@@ -51,10 +47,9 @@ class MemberRepositoryTest {
 
     // then...
     Member selectMember = memberRepository.findByMemNo(member.getMemNo());
-    assertThat(selectMember.getEmail(), is(member.getEmail()));
-    assertThat(selectMember.getPassword(), is(member.getPassword()));
-    assertThat(selectMember.getName(), is(member.getName()));
-    assertThat(selectMember.getGender(), is(member.getGender()));
-    assertThat(selectMember.getBirthDate(), is(member.getBirthDate()));
+    assertEquals(selectMember.getEmail(), member.getEmail());
+    assertEquals(selectMember.getPassword(), member.getPassword());
+    assertEquals(selectMember.getName(), member.getName());
+    assertEquals(selectMember.getGender(), member.getGender());
   }
 }
