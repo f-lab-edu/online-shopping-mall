@@ -36,9 +36,10 @@ class MemberRepositoryTest {
     // given
     Member member = Member.builder()
         .email("test@test.com")
-        .password("a1s2d3!@#")
+        .password("A1s2d3!@#232")
         .name("테스터")
         .gender("M")
+        .hp((long) 01022021234)
         .birthDate(tmpBirthDate)
         .build();
 
@@ -51,5 +52,6 @@ class MemberRepositoryTest {
     assertEquals(selectMember.getPassword(), member.getPassword());
     assertEquals(selectMember.getName(), member.getName());
     assertEquals(selectMember.getGender(), member.getGender());
+    assertEquals(selectMember.getBirthDate(), member.getBirthDate());
   }
 }

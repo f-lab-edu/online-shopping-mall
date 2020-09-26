@@ -41,6 +41,10 @@ logging:
   file:
     name: ../logs/Online_Shopping_Mall/osm.log
 
+encrypt:
+  aesKey: OnlineShoppingMall
+  shaKey: encryptPassword
+
 ---
 spring:
   profiles: local
@@ -65,9 +69,14 @@ spring:
 logging:
   level:
     org:
+      springframework.web: DEBUG
       hibernate:
-        SQL: debug
+        SQL: DEBUG
         type:
           descriptor:
             sql:
-              BasicBinder: trace
+              BasicBinder: TRACE
+
+encrypt:
+  aesKey: OnlineShoppingMall
+  shaKey: encryptPassword
