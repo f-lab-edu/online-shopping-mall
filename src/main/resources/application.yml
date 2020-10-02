@@ -7,7 +7,16 @@
 # 1. 반복적인 CRUD SQL문을 줄일 수 있습니다.
 # 2. DB 테이블로부터 의존도를 줄이며, JPA를 통해 보다 객체지향 적인 코드 작성이 가능합니다.
 # 3. 영속성 컨텍스트(persist context)를 통해 DB 커넥션 리소스 낭비를 줄일 수 있습니다.
-
+#
+# <<<<< JPA 주요 옵션 설명
+# - spring.jpa.database
+#     : JPA 가 적용될 데이터베이스를 뜻하며, 이번 프로젝트는 MySQL로 프로젝트를 개발했습니다.
+# - spring.jpa.database-platform
+#     : JPA 데이터베이스 플랫폼(ex. MyInnoDBDialect, OracleDialect 등)을 지정함으로써 SQL Dialect를 지정합니다.
+# - spring.jpa.open-in-view
+#     : JPA의 OSIV(Open Session In View) 설정을 지정해주는 것입니다.
+#       OSIV는 웹 요청이 완료될 때까지 동일한 EntityManager를 갖도록 해주는 것이며, true인 경우 Request가 끝날때까지
+#       영속성 컨텍스트가 지속적으로 유지되 유연한 코드 작성에 어려움이 있어 false로 지정했습니다.
 
 spring:
   profiles: dev

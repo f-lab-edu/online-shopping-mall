@@ -12,6 +12,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+/**
+ * @DataJpaTest vs @SpringBootTest
+ *    : @DataJpaTest는 오직 JPA 테스트만을 위한 설정들을 요소를 실행시켜 @SpringBootTest보다 빠르게 빌드 될 수 있으며,
+ *      기본적으로 트랜잭션과 롤백이 각 테스트마다 메소드마다 동작합니다.
+ *      만약 어플리케이션의 모든 설정을 동작시켜 테스트하고자 한다면 @SpringBootTest가 적합한 어노테이션입니다.
+ */
 @DataJpaTest
 class MemberRepositoryTest {
 
