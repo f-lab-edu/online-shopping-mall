@@ -19,6 +19,8 @@ Spring Boot, Gradle, Java11, Mysql, JPA
 - 상품등록 / 상품등록 취소
 - 판매현황 / 매출현황
 
+## ER 다이어그램
+![스크린샷 2020-10-07 오후 10 12 21](https://user-images.githubusercontent.com/30804139/95336348-8bc1c200-08eb-11eb-9f28-f686b49bf918.png)
 
 ## 프로젝트 목표
 1. JPA 기술 습득
