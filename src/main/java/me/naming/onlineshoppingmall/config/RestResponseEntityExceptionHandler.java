@@ -1,6 +1,5 @@
 package me.naming.onlineshoppingmall.config;
 
-import com.google.gson.Gson;
 import java.time.LocalDateTime;
 import me.naming.onlineshoppingmall.domain.ResponseData;
 import org.springframework.http.HttpHeaders;
@@ -18,10 +17,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(value = { MessageException.class })
-  protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
+  @ExceptionHandler(value = { RuntimeException.class })
+  protected ResponseEntity handleConflict(RuntimeException ex, WebRequest request) {
     HttpHeaders httpHeaders = new HttpHeaders();
-    Gson gson = new Gson();
 
     httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE));
     String path = ((ServletWebRequest)request).getRequest().getRequestURI();
@@ -32,6 +30,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
         .path(path)
         .message(ex.getMessage())
         .build();
-    return handleExceptionInternal(ex, gson.toJson(responseData), httpHeaders, HttpStatus.INTERNAL_SERVER_ERROR, request);
+
+    return new ResponseEntity<>(responseData, HttpStatus.INTERNAL_SERVER_ERROR);
   }
 }

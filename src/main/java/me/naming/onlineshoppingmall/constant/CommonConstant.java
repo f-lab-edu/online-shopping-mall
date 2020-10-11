@@ -4,6 +4,4 @@ package me.naming.onlineshoppingmall.constant;
 public class CommonConstant {
   private CommonConstant() {};
 
-  public static final String UTF8 = "UTF-8";
-
 }

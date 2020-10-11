@@ -1,12 +1,10 @@
 package me.naming.onlineshoppingmall.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
-import me.naming.onlineshoppingmall.constant.RequestUrlConstant;
 import me.naming.onlineshoppingmall.domain.Member;
 import me.naming.onlineshoppingmall.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,28 +20,31 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MemberController {
 
+  private final MemberService memberService;
+
   @Autowired
-  private MemberService memberService;
+  public MemberController(MemberService memberService) {
+    this.memberService = memberService;
+  }
 
   // 회원가입
-  @PostMapping(value = RequestUrlConstant.MEMBERS_SIGNUP)
+  @PostMapping(value = "/members/signup")
   @ResponseStatus(HttpStatus.CREATED)
   public void memberJoin(@RequestBody @Valid Member member) {
     memberService.signUp(member);
   }
 
   // 회원정보 갖고오기
-  @GetMapping(value = RequestUrlConstant.MEMBERS +"/{memNo}")
+  @GetMapping(value = "/members/{memNo}")
   @ResponseStatus(HttpStatus.OK)
   public Member getMemberInfo(@PathVariable(name = "memNo") Long memNo) {
     return memberService.getMemberInfo(memNo);
   }
 
-  @GetMapping(value = RequestUrlConstant.LOGIN)
+  @GetMapping(value = "/login")
   @ResponseStatus(HttpStatus.OK)
   public void login(@RequestBody UserLoginRequest userLoginRequest, HttpServletRequest request) {
-    HttpSession httpSession = request.getSession();
-    httpSession.setAttribute("loginInfo", memberService.getLoginInfo(userLoginRequest.getEmail(), userLoginRequest.getPassword()));
+    memberService.doLogin(userLoginRequest.getEmail(), userLoginRequest.getPassword(), request);
   }
 
   @Getter

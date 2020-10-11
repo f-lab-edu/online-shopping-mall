@@ -20,6 +20,11 @@ class MemberRepositoryTest {
 
   private static final Logger logger = LogManager.getLogger(MemberRepositoryTest.class);
 
+  private static final String EMAIL = "test@test.com";
+  private static final String PWD = "A1s2d3!@#232";
+  private static final String NAME = "테스터";
+  private static final String M_GENDER = "M";
+
   @Test
   public void 회원정보_저장() {
 
@@ -35,10 +40,10 @@ class MemberRepositoryTest {
 
     // given
     Member member = Member.builder()
-        .email("test@test.com")
-        .password("A1s2d3!@#232")
-        .name("테스터")
-        .gender("M")
+        .email(EMAIL)
+        .password(PWD)
+        .name(NAME)
+        .gender(M_GENDER)
         .hp((long) 01022021234)
         .birthDate(tmpBirthDate)
         .build();
