@@ -7,6 +7,9 @@
 ## 주요 기술 스택
 Spring Boot, Gradle, Java11, Mysql, JPA
 
+## 화면 스케치
+링크 주소 참고 : https://ovenapp.io/view/x7gV3z8AQ2ENDrlHfypOWOSswsgFMXRs/
+
 ## 주요 기능
 소비자
 - 회원가입 / 회원 탈퇴 / 로그인 / 로그아웃
