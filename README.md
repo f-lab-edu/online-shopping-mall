@@ -8,7 +8,10 @@
 Spring Boot, Gradle, Java11, Mysql, JPA
 
 ## 화면 스케치
-링크 주소 참고 : https://ovenapp.io/view/x7gV3z8AQ2ENDrlHfypOWOSswsgFMXRs/
+### 고객
+![스크린샷 2020-10-13 오후 11 31 16](https://user-images.githubusercontent.com/30804139/95874823-48b09480-0dac-11eb-9210-a7263ee0ac9c.png)
+### 상점
+![스크린샷 2020-10-13 오후 11 31 03](https://user-images.githubusercontent.com/30804139/95874832-4b12ee80-0dac-11eb-9d9d-7616fb1917ee.png)
 
 ## 주요 기능
 소비자
