@@ -3,18 +3,23 @@ package me.naming.onlineshoppingmall.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.concurrent.RejectedExecutionException;
+import me.naming.onlineshoppingmall.constant.CommonConstant;
 import me.naming.onlineshoppingmall.domain.Member;
 import me.naming.onlineshoppingmall.repository.MemberRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +28,14 @@ import org.springframework.mock.web.MockHttpServletRequest;
 @ExtendWith(MockitoExtension.class)
 public class MemberServiceTest {
 
-  private MemberService memberService;
-
   @Mock
   private MemberRepository memberRepository;
   @Mock
   private AESServiceImpl aesService;
   @Mock
   private SHAServiceImpl shaService;
-
-  private SHAServiceImpl autowiredSHAService = new SHAServiceImpl();
+  @InjectMocks
+  private MemberService memberService;
 
   private Member testMember;
   private static final String EMAIL = "test@test.com";
@@ -66,14 +69,14 @@ public class MemberServiceTest {
   }
 
   @Test
-  public void 가입된_이메일주소_확인() {
+  @DisplayName("가입된_이메일주소_확인")
+  public void emailIsExist() {
 
     //given
     when(memberRepository.findByEmail(EMAIL)).thenReturn(testMember);
-    memberService = new MemberService(shaService, aesService, memberRepository);
 
     //when
-    Exception exception = assertThrows(RuntimeException.class, () -> {
+    Exception exception = assertThrows(RejectedExecutionException.class, () -> {
       memberService.signUp(testMember);
     });
 
@@ -82,12 +85,12 @@ public class MemberServiceTest {
   }
 
   @Test
-  public void 로그인_실패_이메일주소_존재_X() {
+  @DisplayName("로그인_실패_이메일주소_존재_X")
+  public void loginFailed_emailIsNotExist() {
 
     //given
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     when(memberRepository.findMemnoAndPasswordByEmail(EMAIL)).thenReturn(null);
-    memberService = new MemberService(shaService, aesService, memberRepository);
 
     //when
     Exception exception = assertThrows(RuntimeException.class, () -> {
@@ -99,12 +102,12 @@ public class MemberServiceTest {
   }
 
   @Test
-  public void 로그인_실패_비밀번호_일치_X() {
+  @DisplayName("로그인_실패_비밀번호_일치_X")
+  public void loginFailed_wrongPassword() {
 
     //given
     MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
     when(memberRepository.findMemnoAndPasswordByEmail(EMAIL)).thenReturn(testMember);
-    memberService = new MemberService(shaService, aesService, memberRepository);
 
     //when
     Exception exception = assertThrows(RuntimeException.class, () -> {
@@ -115,18 +118,19 @@ public class MemberServiceTest {
     assertEquals("비밀번호가 틀렸습니다", exception.getMessage());
   }
 
-//  @Test
-//  public void 로그인_성공(){
-//    //given
-//    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-//    when(memberRepository.findMemnoAndPasswordByEmail(EMAIL)).thenReturn(testMember);
-//    memberService = new MemberService(shaService, aesService, memberRepository);
-//
-//    //when
-//    memberService.doLogin(EMAIL, PWD, mockHttpServletRequest);
-//
-//    //then
-//    assertNotNull(mockHttpServletRequest.getAttribute("loginInfo").toString());
-//  }
+  @Test
+  @DisplayName("로그인_성공")
+  public void loginSuccess(){
+    //given
+    MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
+    when(memberRepository.findMemnoAndPasswordByEmail(EMAIL)).thenReturn(testMember);
+    when(shaService.encrypt(PWD)).thenReturn(PWD);
+
+    //when
+    memberService.doLogin(EMAIL, PWD, mockHttpServletRequest);
+
+    //then
+    assertNotNull(mockHttpServletRequest.getAttribute(CommonConstant.LOGIN_INFO).toString());
+  }
 
 }

@@ -3,19 +3,17 @@ package me.naming.onlineshoppingmall.service;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+@Log4j2
 @Service
 public class SHAServiceImpl implements CryptoService {
 
   @Value("${encrypt.shaKey}")
   private String shaKey;
-
-  private static final Logger logger = LogManager.getLogger(SHAServiceImpl.class);
 
   @Override
   public String encrypt(String plainText) {
@@ -30,7 +28,7 @@ public class SHAServiceImpl implements CryptoService {
       }
       generatedPassword = sb.toString();
     } catch (NoSuchAlgorithmException e) {
-      logger.error("** SHA512 NoSuchAlgorithmException : {}", e);
+      log.error("** SHA512 NoSuchAlgorithmException : {}", e);
     }
 
     if(StringUtils.isEmpty(generatedPassword)) {

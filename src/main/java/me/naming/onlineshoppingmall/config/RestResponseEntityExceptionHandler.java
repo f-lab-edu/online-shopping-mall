@@ -2,9 +2,8 @@ package me.naming.onlineshoppingmall.config;
 
 import java.time.LocalDateTime;
 import me.naming.onlineshoppingmall.domain.ResponseData;
-import org.springframework.http.HttpHeaders;
+import me.naming.onlineshoppingmall.exception.MessageException;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,18 +16,22 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(value = { RuntimeException.class })
-  protected ResponseEntity handleConflict(RuntimeException ex, WebRequest request) {
-    HttpHeaders httpHeaders = new HttpHeaders();
-
-    httpHeaders.setContentType(MediaType.valueOf(MediaType.APPLICATION_JSON_VALUE));
+  @ExceptionHandler(value = { MessageException.class })
+  protected ResponseEntity handleConflict(MessageException messageException, WebRequest request) {
     String path = ((ServletWebRequest)request).getRequest().getRequestURI();
+    int code;
+
+    if(messageException.getStatusCode() != 0) {
+      code = messageException.getStatusCode();
+    } else {
+      code = HttpStatus.INTERNAL_SERVER_ERROR.value();
+    }
 
     ResponseData responseData = ResponseData.builder()
         .localDateTime(LocalDateTime.now())
-        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .statusCode(code)
         .path(path)
-        .message(ex.getMessage())
+        .message(messageException.getMessage())
         .build();
 
     return new ResponseEntity<>(responseData, HttpStatus.INTERNAL_SERVER_ERROR);

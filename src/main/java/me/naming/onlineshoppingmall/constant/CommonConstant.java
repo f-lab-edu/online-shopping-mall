@@ -4,4 +4,5 @@ package me.naming.onlineshoppingmall.constant;
 public class CommonConstant {
   private CommonConstant() {};
 
+  public static final String LOGIN_INFO = "loginInfo";
 }

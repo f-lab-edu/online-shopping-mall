@@ -34,7 +34,6 @@ public class Member {
 
   @Column(name = "EMAIL")
   @NotNull
-//  @Pattern(regexp = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$")
   @Email(message = "이메일 형식에 맞지 않습니다.")
   private String email;
 
@@ -42,8 +41,8 @@ public class Member {
   @Column(name = "PASSWORD")
   @NotNull
   @Setter
-//  @Pattern(regexp = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{9,12}$",
-//      message = "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 9자 ~ 12자의 비밀번호여야 합니다.")
+  @Pattern(regexp = "^(?=.*\\d)(?=.*[~`!@#$%\\^&*()-])(?=.*[a-z])(?=.*[A-Z]).{9,12}$",
+      message = "비밀번호는 영문 대,소문자와 숫자, 특수기호가 적어도 1개 이상씩 포함된 9자 ~ 12자의 비밀번호여야 합니다.")
   private String password;
 
   @Column(name = "NAME", length = 30)

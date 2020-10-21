@@ -11,13 +11,13 @@ import org.springframework.http.HttpStatus;
 @Getter
 public class ResponseData {
   private LocalDateTime localDateTime;
-  private HttpStatus status;
+  private int statusCode;
   private String path;
   private String message;
 
-  public ResponseData(LocalDateTime localDateTime, HttpStatus status, String path, String message) {
+  public ResponseData(LocalDateTime localDateTime, int statusCode, String path, String message) {
     this.localDateTime = localDateTime;
-    this.status = status;
+    this.statusCode = statusCode;
     this.path = path;
     this.message = message;
   }
