@@ -1,12 +1,19 @@
 package me.naming.onlineshoppingmall.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -56,6 +63,7 @@ public class Member {
   private String gender;
 
   @Column(name = "STATUS")
+  @Enumerated(EnumType.STRING)
   @Setter
   private MemberStatus memberStatus;
 
@@ -64,9 +72,17 @@ public class Member {
   private Long hp;
 
   @Temporal(TemporalType.TIMESTAMP)
-  @Column(name = "BIRTH_DTS") @NotNull
+  @Column(name = "BIRTH_DTS")
+  @NotNull
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy/MM/dd", timezone = "Asia/Seoul)")
   private Date birthDate;
+
+  @ManyToOne
+  @JoinColumn(name = "ROAD_ADDR_NO")
+  private Address address;
+
+  @Column(name = "ADDRESS_DETAIL")
+  private String addrDetail;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "REG_DTS", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
@@ -75,6 +91,9 @@ public class Member {
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "MOD_DTS", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
   private Date modDts;
+
+  @OneToMany(mappedBy = "member")
+  private List<Order> orderList = new ArrayList<>();
 
   public enum MemberStatus{
     // DEFAULT(가입), DELETE(탈퇴), DORMANT(휴면)
